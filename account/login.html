@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>RobertChat Login</title>
+    <link rel="stylesheet" href="/all.css">
+    <link rel="stylesheet" href="/account/user.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <h1><img src="/logo.svg" style="height:5vh;width:5vw"><b><span style="color:white;font-size:175%">RobertChat Login</span></b></h1>
+    <input id="uname" placeholder="Username">
+    <br><br>
+    <input id="pwd" placeholder="Password" type="password">
+    <br><br>
+    <button id="btn" onclick="login()">Send</button>
+    <br><br>
+    <p id="msg">Message</p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const uname = document.getElementById("uname");
+      const pwd = document.getElementById("pwd");
+      const btn = document.getElementById("btn");
+      const msg = document.getElementById("msg");
+      const socket = io();
+      function login(){
+        socket.emit("toLogin",document.getElementById("uname").value,document.getElementById("pwd").value);
+      }
+      socket.on('fromLogin', (uid) => {
+        if (uid=="NOT_EXIST"){
+          msg.innerHTML = "Username incorrect or user does not exist";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }else if (uid=="BAD_PWD"){
+          msg.innerHTML = "Password incorrect";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }else if (uid=="ERR"){
+          msg.innerHTML = "ERROR! Please contact Robert at robert@rbrt.us";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }else{
+          msg.innerHTML = "Logged in; redirecting";
+          msg.style.color = "#2ecc71";
+          msg.style.visibility = "visible";
+          document.cookie = "uname="+uname.value+"; max-age=604800; secure; samesite=strict";
+          document.cookie = "uid="+uid+"; max-age=604800; secure; samesite=strict";
+          window.location.href = "/index.html";
+        }
+      });
+    </script>
+    <script src="/all.js"></script>
+  </body>
+</html>
