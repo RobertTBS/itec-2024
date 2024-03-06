@@ -4,141 +4,135 @@ body {
   font-family: "Overpass",sans-serif;
   overflow:hidden;
   max-height:80vh;
+  background-color:#444444;
+  background-image: url("https://cdn.glitch.me/d354bb74-db20-4c6c-90db-b2646d509a55/PXL_20210526_014527428.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align:center;
 }
-
-.icon {
-  border-radius:5%;
-  width:5.5%;
-  height:auto;
-  position:absolute;
-  left:0;
-  top:0;
-  max-height:95%;
+.topdiv{
+  background-color:rgba(69,69,69,.5);
+  line-height:3em;
+  user-select:none;
+  text-align:left;
 }
-.yourtext{
-  position:sticky;
-  width:70%;
-  background-color:#999999;
-  color:white;
-  left:15%;
-  padding-bottom:1%;
+.topdiv > button, .textInput > button{
+  background:none;
+  border:0;
+  vertical-align:middle;
+  cursor: pointer;
 }
-.yourtext > p{
+a{
+  color:black;
+}
+.channellist{
+  border-radius:2vw;
+  width:25%;
+  height:82vh;
+  margin-top:2vh;
+  margin-bottom:2vh;
+  border:1px solid black;
+  background-color:rgba(69,69,69,.5);
+  /*Animation*/
+  position:fixed;
+  left:-23%;
+  transition: left 1.5s; /* Animate the left property */
+  display:inline-end;
+}
+.channel{
   margin:0;
+  font-weight:900;
+  font-size:2em;
+  background:none;
+  border:none;
+  font-family:'Overpass',sans-serif;
+  height:1em;
+  margin:0;
+  cursor:pointer;
 }
-.yourtext > .InnerBox > .UserName{
-  font-size:120%;
-  font-weight:bold;
-  color:blue;
-}
-.InnerBox{
-  color:blue;
-  position:relative;
-  left:8%;
-}
-#messages {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  height:95%;
-  max-height:95vh;
+.userList{
+  border-radius:2vw;
+  width:25%;
+  height:82vh;
+  max-height:82vh;
+  margin-top:2vh;
+  margin-bottom:2vh;
+  border:1px solid black;
+  background-color:rgba(69,69,69,.5);
+  /*Animation*/
+  position:fixed;
+  right:-23%;
+  transition: right 1.5s; /* Animate the left property */
   overflow:auto;
   display:flex;
-  flex-direction:column;
-  top:0;
 }
-.channelbox{
-  width:15%;
-  background-color:#444444;
-  height:100vh;
+.textInput{
+  width:100%;
+  height:8%;
+  line-height:8%;
+  font-size:2em; 
+  font-family:'Overpass',sans-serif;
+  background-color:rgba(69,69,69,.75);
+  border:1px solid black;
   position:absolute;
+  bottom:0;
+  border-radius:1vw;
 }
-.usersettings{
-  border:5px solid green;
-  text-align:center;
-  position:relative;
-  height:17%;
-  overflow:scroll;
-  scrollbar-width: none;
-  background-color:#444444;
+input{
+  font-size:.75em;
 }
-.usersettings > span, .usersettings > a{
-  margin:0;
-  color:red;
-  font-weight:bold;
-}
-.usersettings > .ThisUserIcon{
-  width:25%;
-  left:5px;
+.textBoxes{
+  width:90%;
   position:absolute;
+  left:5%;
 }
-.usersettings > #uname{
-  font-weight:bold;
-  color:green;
-  position:absolute;
-  left:30%;
-}
-.usersettings > #roles{
+.textBoxes > .otherUser{
   text-align:left;
-  color:yellow;
-  left:30%;
+  float:left;
+  max-width:65%;
+  background-color:rgba(46,204,113,.5);
+  width: fit-content;
+  padding:1%;
+  border-radius:2vw;
+  border-bottom-left-radius:0px;
+  font-size:1.25em;
+}
+.textBoxes > .thisUser{
+  text-align:left;
+  float:right;
+  max-width:65%;
+  background-color:rgba(52, 152, 219,.5);
+  width: fit-content;
+  padding:1%;
+  border-radius:2vw;
+  border-bottom-right-radius:0px;
+  font-size:1.25em;
+}
+.online,.offline{
+  text-align:left;
+}
+.user{
+  margin:2px;
+  border-radius:1vw;
+  white-space:nowrap;
+}
+.user > span{
+  padding-left:5%;
+  font-size:1.5em;
+  vertical-align:top;
+  top:.1em;
+  position:relative;
+}
+#UserPrefs{
   position:absolute;
-}
-.usersettings > #roles > span{
-  cursor:help;
-}
-.usersettings > a{
-  position:absolute;
-  top:0;
-  left:0;
-  font-size:60%;
-}
-.usersettings > #notloggedin{
-  background-color:#444444;
-  font-weight:bold;
-  z-index:999;
-  position:absolute;
-  height:100%;
-  width:100%; 
-  color:red;
-  a{
-    color:green;
-  }
-}
-.usersettings > #notloggedin > a{
-  color:yellow;
-}
-
-#form {
-  background: rgba(0, 0, 0, 0.15);
-  padding: 0.25rem;
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  height: 3rem;
-  box-sizing: border-box;
-  backdrop-filter: blur(10px);
+  border:5px solid black;
+  border-radius:2vw;
+  height:70%;
   width:70%;
-  left:15%;
-}
-#input {
-  border: none;
-  padding: 0 1rem;
-  flex-grow: 1;
-  border-radius: 2rem;
-  margin: 0.25rem;
-  width:60%;
-  right:20%;
-}
-#input:focus {
-  outline: none;
-}
-#form > button {
-  background: #333333;
-  border: none;
-  padding: 0 1rem;
-  margin: 0.25rem;
-  border-radius: 3px;
-  outline: none;
-  color: #ffffff;
+  margin-left:15%;
+  top:11.5%;
+  background:rgba(69,69,69,.85);
+  user-select: none;
+  transition: top 1.5s; /* Animate the left property */
+  overflow:auto;
 }

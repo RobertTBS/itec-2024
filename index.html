@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>BENNET CLASS CHAT TEST</title>
+    <title>RobertChat</title>
     <link rel="stylesheet" href="all.css">
     <link rel="stylesheet" href="chat.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,74 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="channelbox" id="channelbox">
-      <div class="usersettings">
-        <div id="notloggedin">
-          <span>NOT LOGGED IN</span>
-          <br>
-          <span style="color:green;">Login as:</span>
-          <br>
-          <a href="#" onclick="this.parentElement.style.display = 'none'">Anonamous</a>
-          <br>
-          <a href="/account/login">Existing User</a>
-          <br>
-          <a href="/account/new">New User</a>
-        </div>
-        <span>LOGGED IN AS</span>
-        <br>
-        <img src="https://cdn.glitch.com/782eb81c-c672-44cf-b500-e4669b3dc4f1/NORTHPOLK.svg" class="ThisUserIcon">
-        <span id="uname">ANONAMOUS</span>
-        <br>
-        <div id="roles">
-          <span title="Example role">EXAMPLE</span><br>
-        </div>
-        <a onclick="if (confirm('Logout?')){window.location = './login'}" href="#">LOGOUT</a>
-      </div>
-      CHANNEL BOX</div>
-    <div id="messages">
-      <span style="position:absolute;color:red;left:15%;">This is empty, loading, or you don't have permisisons.</span>
-    </div>
-    <div style="width:15%;background-color:#444444;height:100vh;position:absolute;right:0;top:0;">USER BOX</div>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io();
-
-      const form = document.getElementById("form");
-      const input = document.getElementById("input");
-      const messages = document.getElementById("messages");
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (input.value) {
-          socket.emit("TOSERVER", input.value,"ROBERT");
-          input.value = "";
-        }
-      });
-
-      socket.on("TOCLIENT", (msg,user) => {
-        const box = document.createElement("div");
-        const box2 = document.createElement("div");
-        const icon = document.createElement("img");
-        const text = document.createElement("span");
-        const userText = document.createElement("span");
-        icon.src="https://cdn.glitch.com/782eb81c-c672-44cf-b500-e4669b3dc4f1/NORTHPOLK.svg";
-        icon.classList.add("icon");
-        box.appendChild(icon);
-        userText.innerHTML = user+"<br>";
-        userText.classList.add("UserName");
-        box2.appendChild(userText);
-        box.classList.add("yourtext");
-        box2.classList.add("InnerBox");
-        text.textContent = msg;
-        box2.appendChild(text);
-        box.appendChild(box2);
-        messages.appendChild(box);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-    </script>
-    <script src="/all.js"></script>
+    This is example. GOTO <a href="/chat">chat.html</a>
   </body>
 </html>

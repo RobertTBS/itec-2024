@@ -26,11 +26,20 @@
       const msg = document.getElementById("msg");
       const socket = io();
       function create(){
+        if (document.getElementById("uname").value.length > 15){
+          msg.innerHTML = "Longer than 15 characters!";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }
         socket.emit("toCreate",document.getElementById("uname").value,document.getElementById("pwd").value);
       }
       socket.on('fromCreate', (uid) => {
         if (uid=="EXISTS"){
           msg.innerHTML = "Username already exists";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }else if (uid=="CONTAINS_SPACE"){
+          msg.innerHTML = "Username contains space";
           msg.style.color = "yellow";
           msg.style.visibility = "visible";
         }else if (uid=="BAD_WORD"){
@@ -39,6 +48,10 @@
           msg.style.visibility = "visible";
         }else if (uid=="ERR"){
           msg.innerHTML = "ERROR! Please contact Robert at robert@rbrt.us";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }else if (uid=="TOO_LONG"){
+          msg.innerHTML = "Username is longer than 15 characters!";
           msg.style.color = "yellow";
           msg.style.visibility = "visible";
         }else if (uid=="GOOD"){

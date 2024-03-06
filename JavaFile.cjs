@@ -39,8 +39,17 @@ function execute(cmd_compile, args_compile, cmd_run, args_run) {
 function runfile (args, callback) {
   //var compile = spawn('gcc', ['codec.c', '-o','codec.out']);
   //var compile = spawn('javac', ['JAVA/UserStuff.java']);
-  var item = spawn("java", ["-jar","java.jar",args]);
-  console.log("java -jar java.jar "+args);
+  let argsstring = "";
+  for (let i = 0; i < args.length; i++){
+    if (args[i].includes(" ")){
+      callback( ["CONTAINS_SPACE"]);
+      return;
+    }
+    if (i=3) args[i] = "TEMPFORTWO";
+    argsstring = argsstring + args[i] + " ";
+  }
+  console.log("java -jar .data/java.jar "+argsstring);
+  var item = spawn("java", ["-jar",".data/java.jar",argsstring]);
   // Array to store output lines
   const outputLines = [];
   // Listen for data events to capture output

@@ -9,7 +9,7 @@ import exports from './JavaFile.cjs';
 import * as fs from 'fs'
 //import {compile,execute,runfile} from './JavaFile.js';
 
-//exec('gdown --folder https://drive.google.com/drive/u/1/folders/1eusuajDuuSzQGX3Ad6NHuKOlJt1_n4is -O /app/JAVA');
+exec("wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1b6kWZTAUYmmZH7tqqRe1hZAsfUK9P5I4' -O .data/java.jar");
 
 /*fs.readdir("/app/JAVA", (err, files) => {
   files.forEach(file => {
@@ -57,6 +57,12 @@ app.get('/logo.svg', (req, res) => {
 app.get('/all.js', (req, res) => {
   res.sendFile(join(__dirname, 'all.js'));
 });
+app.get('/chat.js', (req, res) => {
+  res.sendFile(join(__dirname, 'chat.js'));
+});
+app.get('/chat', (req, res) => {
+  res.sendFile(join(__dirname, 'chat.html'));
+});
 
 //Socket.IO connections
 let onlineUsers = []
@@ -72,13 +78,27 @@ io.on('connection', (socket) => {
   socket.on('TOSERVER', (msg,user) => {
     io.emit('TOCLIENT', msg,user);
   });
+  
+  
+  //Login
   socket.on('toLogin', (uname,pwd) => { //Log in to account
-    exports.runfile(['AccountFront', 'Login', "", uname , pwd],(toreturn) => {
-      socket.emit("fromLogin",toreturn[0]);
+    exports.runfile(['AccountFront', 'Login', "", uname , pwd],(uid) => {
+      exports.runfile(['AccountFront', 'GetIcon', "", uname.toString()],(icon) => {
+        socket.emit("fromLogin",uid[0],icon[0]);
+      });
     });
   });
+  
+  //Create user
   socket.on('toCreate', (uname,pwd) => { //Create account
     exports.runfile(['AccountFront', 'Create', "", uname , pwd],(toreturn) => {
+      socket.emit("fromCreate",toreturn[0]);
+    });
+  });
+  
+  //Change icon
+  socket.on('newIcon', (uname,uid,icon,filename) => { //Create account
+    exports.runfile(['AccountFront', 'Create', "", uname , uid , filename],(toreturn) => {
       socket.emit("fromCreate",toreturn[0]);
     });
   });

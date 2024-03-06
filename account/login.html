@@ -28,9 +28,14 @@
       function login(){
         socket.emit("toLogin",document.getElementById("uname").value,document.getElementById("pwd").value);
       }
-      socket.on('fromLogin', (uid) => {
+      socket.on('fromLogin', (uid,icon) => {
+        if (uid==null||uid=="NULL"||uid=="null"||uid==undefined||uid=="") uid="ERR";
         if (uid=="NOT_EXIST"){
           msg.innerHTML = "Username incorrect or user does not exist";
+          msg.style.color = "yellow";
+          msg.style.visibility = "visible";
+        }else if(uid=="CONTAINS_SPACE"){
+          msg.innerHTML = "Username contains space, this cannot exist!";
           msg.style.color = "yellow";
           msg.style.visibility = "visible";
         }else if (uid=="BAD_PWD"){
@@ -45,9 +50,11 @@
           msg.innerHTML = "Logged in; redirecting";
           msg.style.color = "#2ecc71";
           msg.style.visibility = "visible";
-          document.cookie = "uname="+uname.value+"; max-age=604800; secure; samesite=strict";
-          document.cookie = "uid="+uid+"; max-age=604800; secure; samesite=strict";
-          window.location.href = "/index.html";
+          localStorage.clear();
+          localStorage.setItem("uname", uname.value);
+          localStorage.setItem("uid", uid);
+          localStorage.setItem("icon", icon);
+          window.location.href = "/chat";
         }
       });
     </script>
